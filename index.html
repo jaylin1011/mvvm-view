@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="icon" type="image/png" href="./assets/jay-lin.png" />
+    <link
+      href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="./assets/index.css" rel="stylesheet" />
+    <title>Vue2MVVM的简单实现</title>
+  </head>
+
+  <body>
+    <div class="site-wrapper" id="app">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
+          <div class="inner cover">
+            <div v-html="content.html"></div>
+            <p class="lead">
+              {{content.mustache}}
+            </p>
+            <p class="lead" v-text="computedText"></p>
+            <p class="lead">
+              <button
+                class="btn btn-lg btn-default"
+                type="button"
+                @click="onClick"
+              >
+                {{content.button}}
+              </button>
+            </p>
+            <form>
+              <div class="form-group">
+                <label for="exampleInputEmail1"
+                  >使用v-model指令测试数据双向绑定</label
+                >
+                <input class="form-control" v-model="content.model" />
+              </div>
+              <p class="lead text-theme" v-text="modelText"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="module">
+    import Vue2 from "./src/vue2.js";
+    const vm = new Vue2({
+      el: "#app",
+      data: {
+        content: {
+          mustache: "测试插值表达式",
+          html: `<h1 class="cover-heading">测试v-html指令</h1>`,
+          model: "I love Vue!",
+          computed: "测试计算属性",
+          button: "点击测试@指令"
+        },
+        flag: true
+      },
+      computed: {
+        computedText() {
+          return `使用v-text指令${this.content.computed}`;
+        },
+        modelText() {
+          return `${this.content.model}`;
+        }
+      },
+      methods: {
+        onClick() {
+          if (this.flag) {
+            this.content.mustache = "测试插值表达式成功";
+            this.content.html = `<h1 class="cover-heading">测试v-html指令成功</h1>`;
+            this.content.computed = "测试计算属性成功";
+            this.content.button = "测试成功";
+            this.flag = !this.flag;
+          } else {
+            this.content.button = "重新测试";
+            this.content.computed = "计算属性";
+            this.content.mustache = "插值表达式";
+            this.content.html = `<h1 class="cover-heading">v-html指令</h1>`;
+            this.flag = !this.flag;
+          }
+        }
+      }
+    });
+    window.vm = vm;
+  </script>
+</html>
