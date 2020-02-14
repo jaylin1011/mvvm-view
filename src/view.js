@@ -1,6 +1,6 @@
 import { Compile } from './compile.js'
 import Observer from './observer.js'
-class Vue2 {
+class View {
   constructor(options) {
     const { el, data, computed, methods } = options
     this.$el = el
@@ -43,4 +43,4 @@ class Vue2 {
   }
 }
 
-export default Vue2
+export default View

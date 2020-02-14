@@ -1,6 +1,7 @@
 import {
   Dep
 } from './dep-watcher.js'
+
 class Observer {
   constructor(data) {
     this.observer(data)
@@ -10,7 +11,23 @@ class Observer {
   }
   observer(data) {
     if (this.isObject(data)) {
-      Object.keys(data).forEach(key => this.defineReactive(data, key, data[key]))
+      Object.keys(data).forEach(key => {
+        if (Array.isArray(data[key])) {
+          const methods = ['pop', 'push', 'shift', 'unshift', 'sort', 'reverse', 'splice']
+          let prototype = Object.create(Array.prototype)
+          const self = this;
+          methods.forEach(method => {
+            prototype[method] = function () {
+              [...arguments].forEach(value => { self.observer(value) })
+              return Array.prototype[method].call(this, ...arguments)
+            }
+          })
+          data[key].forEach(v => { this.observer(v) })
+          Object.setPrototypeOf(data[key], prototype)
+        }
+        this.defineReactive(data, key, data[key])
+      })
+
     }
   }
   defineReactive(target, key, value) {

@@ -10,7 +10,7 @@
       rel="stylesheet"
     />
     <link href="./assets/index.css" rel="stylesheet" />
-    <title>Vue2MVVM的简单实现</title>
+    <title>仿 Vue 版 MVVM 框架 View 的简单实现</title>
   </head>
 
   <body>
@@ -21,6 +21,9 @@
             <div v-html="content.html"></div>
             <p class="lead">
               {{content.mustache}}
+            </p>
+            <p class="lead">
+              {{arr}}
             </p>
             <p class="lead" v-text="computedText"></p>
             <p class="lead">
@@ -35,7 +38,7 @@
             <form>
               <div class="form-group">
                 <label for="exampleInputEmail1"
-                  >使用v-model指令测试数据双向绑定</label
+                  >使用 v-model 指令测试数据双向绑定</label
                 >
                 <input class="form-control" v-model="content.model" />
               </div>
@@ -47,8 +50,8 @@
     </div>
   </body>
   <script type="module">
-    import Vue2 from "./src/vue2.js";
-    const vm = new Vue2({
+    import View from "./src/view.js";
+    const vm = new View({
       el: "#app",
       data: {
         content: {
@@ -58,7 +61,8 @@
           computed: "测试计算属性",
           button: "点击测试@指令"
         },
-        flag: true
+        flag: true,
+        arr: [1, 2, 3]
       },
       computed: {
         computedText() {
@@ -74,10 +78,10 @@
             this.content.mustache = "测试插值表达式成功";
             this.content.html = `<h1 class="cover-heading">测试v-html指令成功</h1>`;
             this.content.computed = "测试计算属性成功";
-            this.content.button = "测试成功";
+            this.content.button = "重新测试";
             this.flag = !this.flag;
           } else {
-            this.content.button = "重新测试";
+            this.content.button = "测试@指令";
             this.content.computed = "计算属性";
             this.content.mustache = "插值表达式";
             this.content.html = `<h1 class="cover-heading">v-html指令</h1>`;

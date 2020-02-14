@@ -1,15 +1,16 @@
-# vue2-mvvm
+# mvvm-view
 
-to implement vue2js as a simple MVVM lib
+to implement view as a simple MVVM framework
 
-Vue2MVVM 响应式原理的简单实现
+仿 Vue 版 MVVM 响应式原理的简单实现
 数据劫持 + 发布-订阅模式
+![](/assets/mvvm.jpg)
 
 ## 数据代理和数据劫持
 
-基于 Object.defineProperty()的 Data Bindings 和 Dom Listeners
+基于 Object.defineProperty() 的 Data Bindings 和 Dom Listeners
 
-![](/assets/mvvm.jpg)
+![](/assets/vue2.jpg)
 
 ## 一般指令编译
 
